@@ -40,8 +40,8 @@
  * if the display is not touched for the period of the lcd idle timer.
  *
  * Idle Timer:  1: LCD_DIM_OFF,         2: LCD_DIM_5_SECONDS.   3: LCD_DIM_10_SECONDS,
- *              4: LCD_DIM_30_SECONDS,  4: LCD_DIM_60_SECONDS,  5: LCD_DIM_120_SECONDS,
- *              6: LCD_DIM_300_SECONDS, 7: LCD_DIM_CUSTOM_SECONDS
+ *              4: LCD_DIM_30_SECONDS,  5: LCD_DIM_60_SECONDS,  6: LCD_DIM_120_SECONDS,
+ *              7: LCD_DIM_300_SECONDS, 8: LCD_DIM_CUSTOM_SECONDS
  *
  */
 #define DEFAULT_LCD_BRIGHTNESS      11  // 11: LCD_100_PERCENT - Brightness value from list
@@ -101,7 +101,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 /**
  * Default Touch Mode Language
@@ -144,9 +144,9 @@
 
 //                       PLA      PETG       ABS
 #define PREHEAT_BED      {60,      70,       100}
-#define PREHEAT_HOTEND   {200,     250,      230}
+#define PREHEAT_HOTEND   {210,     230,      230}
 
-#define HEAT_MAX_TEMP    {150,    275,       275,       275,       275,       275,       275}    //max temperature can be set
+#define HEAT_MAX_TEMP    {110,    290,       275,       275,       275,       275,       275}    //max temperature can be set
 #define HEAT_SIGN_ID     {"B:",   "T0:",     "T1:",     "T2:",     "T3:",     "T4:",     "T5:"}
 #define HEAT_DISPLAY_ID  {"Bed",  "T0",      "T1",      "T2",      "T3",      "T4",      "T5"}
 #define HEAT_CMD         {"M140", "M104 T0", "M104 T1", "M104 T2", "M104 T3", "M104 T4", "M104 T5" };
@@ -174,21 +174,21 @@
 #define EXTRUDE_FAST_SPEED      1200
 
 // Size of machine
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS -185
+#define Y_MIN_POS -185
 #define Z_MIN_POS 0
-#define X_MAX_POS 235
-#define Y_MAX_POS 235
-#define Z_MAX_POS 250
+#define X_MAX_POS 185
+#define Y_MAX_POS 185
+#define Z_MAX_POS 410
 
 // Specify a pause position as { X, Y, Z_raise }
 #define NOZZLE_PAUSE_RETRACT_LENGTH 15   // (mm)
 #define NOZZLE_RESUME_PURGE_LENGTH  16   // (mm)
-#define NOZZLE_PAUSE_X_POSITION     (X_MIN_POS + 10)  // (mm) Must be an integer
-#define NOZZLE_PAUSE_Y_POSITION     (Y_MIN_POS + 10)  // (mm) Must be an integer
+#define NOZZLE_PAUSE_X_POSITION     0  // (mm) Must be an integer
+#define NOZZLE_PAUSE_Y_POSITION     -185  // (mm) Must be an integer
 #define NOZZLE_PAUSE_Z_RAISE        20   // (mm)
-#define NOZZLE_PAUSE_E_FEEDRATE     6000 // (mm/min) retract & purge feedrate
-#define NOZZLE_PAUSE_XY_FEEDRATE    6000 // (mm/min) X and Y axes feedrate
+#define NOZZLE_PAUSE_E_FEEDRATE     300  // (mm/min) retract & purge feedrate
+#define NOZZLE_PAUSE_XY_FEEDRATE    3000 // (mm/min) X and Y axes feedrate
 #define NOZZLE_PAUSE_Z_FEEDRATE     600  // (mm/min) Z axis feedrate
 
 /**
@@ -285,20 +285,20 @@
  *
  * CUSTOM_X_LABEL is the name of the custom button, CUSTOM_X_GCODE is the G-code to be sent by the custom button, this should always end with a New-Line character '\n'
  */
-#define CUSTOM_0_LABEL "Disable Steppers"
-#define CUSTOM_0_GCODE "M84\n"
-#define CUSTOM_1_LABEL "Init SD Card"
-#define CUSTOM_1_GCODE "M21\n"
-#define CUSTOM_2_LABEL "Release SD Card"
-#define CUSTOM_2_GCODE "M22\n"
-#define CUSTOM_3_LABEL "Enable Leveling State"
-#define CUSTOM_3_GCODE "M420 S1\n"
-#define CUSTOM_4_LABEL "Save to EEPROM"
-#define CUSTOM_4_GCODE "M500\n"
-#define CUSTOM_5_LABEL "Restore from EEPROM"
-#define CUSTOM_5_GCODE "M501\n"
-#define CUSTOM_6_LABEL "EEPROM Defaults"
-#define CUSTOM_6_GCODE "M502\n"
+#define CUSTOM_0_LABEL "load Filament"
+#define CUSTOM_0_GCODE "G90\nG92 E0\nG1 E150 F1200\nG92 E0\nG1 E100 F1200\nG92 E0\nG1 E70 F300\nG92 E0\n"
+#define CUSTOM_1_LABEL "Unload filament"
+#define CUSTOM_1_GCODE "G90\nG92 E0\nG1 E-150 F1200\nG92 E0\nG1 E-150 F1200\nG92 E0\n"
+#define CUSTOM_2_LABEL "Calibration Line"
+#define CUSTOM_2_GCODE "G28\nG92 E0\nG0 X-95 Y0 Z10 F3000\nG1 E10 F60\nG92 E0\nG1 X-75 Z0.3 E1.5 F900\nG92 E0\nG1 X75 E15\nG92 E0\nG1 E-1 F1800\nG1 Z1 F600\nG1 X0 Y0 Z150 F3000\n"
+#define CUSTOM_3_LABEL "Steppers always on"
+#define CUSTOM_3_GCODE "M84 S0\n"
+#define CUSTOM_4_LABEL "Disable soft endstops"
+#define CUSTOM_4_GCODE "M211 S0\n"
+#define CUSTOM_5_LABEL "Enable soft endstops"
+#define CUSTOM_5_GCODE "M211 S1\n"
+#define CUSTOM_6_LABEL "Lower to 20 mm"
+#define CUSTOM_6_GCODE "G28\nG0 X0 Y0 Z20 F6000"
 //#define CUSTOM_7_LABEL "Custom7"
 //#define CUSTOM_7_GCODE "M105\n"
 //#define CUSTOM_8_LABEL "Custom8"
@@ -324,12 +324,14 @@
  * Enable Start & End G-code in SETTINGS -> FEATURE menu.
  */
 // Start G-code - run this G-code before starting print
-#define PRINT_START_GCODE "G28 XY R10\n" // Raise Z 10mm before homing X & Y
+// #define PRINT_START_GCODE "G28 XY R10\n" // Raise Z 10mm before homing X & Y
+#define PRINT_START_GCODE "" // Null
 
 // End G-code - run this G-code after finishing print
-#define PRINT_END_GCODE "G90\nG1 E-4\nG92 E0\nM18\n" // Switch to absolute positioning, reduce filament pressure by performing small retract, reset extruder position, disable steppers
+// #define PRINT_END_GCODE "G90\nG1 E-4\nG92 E0\nM18\n" // Switch to absolute positioning, reduce filament pressure by performing small retract, reset extruder position, disable steppers
+#define PRINT_END_GCODE "G90\nG1 E-4\nG92 E0\n" // Switch to absolute positioning, reduce filament pressure by performing small retract, reset extruder position
 
 // Cancel G-code - run this G-code after canceling print
-#define CANCEL_PRINT_GCODE "G28 XY R10\n" // Raise Z 10mm before homing X & Y
+#define CANCEL_PRINT_GCODE "G28 XY R10\n" // Home XY and raise Z 10mm
 
 #endif

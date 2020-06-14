@@ -155,7 +155,7 @@ void printerGotoIdle(void)
     mustStoreCmd("%s S0\n", fanCmd[i]);
   }
   // disable all stepper
-  mustStoreCmd("M18\n");
+  // mustStoreCmd("M18\n");
 }
 
 //only return gcode file name except path

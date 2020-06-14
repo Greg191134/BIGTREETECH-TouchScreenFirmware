@@ -52,7 +52,7 @@ void initMachineSetting(void){
 void setupMachine(void){
   #ifdef AUTO_SAVE_LOAD_LEVELING_VALUE
     if (infoMachineSettings.autoLevel == 1 && infoMachineSettings.EEPROM == 1){
-      storeCmd("M420 S1\n");
+      storeCmd("G29 A\n");
     }
   #endif
   if (infoMachineSettings.emergencyParser != 1 && wasRestored == true){
@@ -97,7 +97,7 @@ void menuInfo(void)
 
   my_sprintf(buf, "P2Tim:%dMhz", mcuClocks.PCLK2_Timer_Frequency / 1000000);
   GUI_DispString(clocks[5].x, clocks[5].y, (uint8_t *)buf);
-                             
+
   GUI_DispString(startX, centerY - BYTE_HEIGHT, (u8 *)hardware);
   GUI_DispString(startX, centerY, (u8 *)firmware);
   GUI_DispStringInRect(20, LCD_HEIGHT - (BYTE_HEIGHT*2), LCD_WIDTH-20, LCD_HEIGHT, textSelect(LABEL_TOUCH_TO_EXIT));
