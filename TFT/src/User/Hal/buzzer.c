@@ -18,7 +18,7 @@ void TIM3_Config(void)
 	TIM3->CR1 &= ~(0x01);
 	TIM3->DIER |= 1<<0;
   TIM3->SR = (uint16_t)~(1<<0);
- 	TIM3->ARR = mcuClocks.PCLK1_Timer_Frequency / 1000000 - 1; // 20hz to 1Mhz
+ 	TIM3->ARR = F_CPUM - 1; // 20hz to 1Mhz
 }
 
 void Buzzer_Config(void)
@@ -74,34 +74,30 @@ void Buzzer_play(SOUND sound){
 switch (sound)
 {
 case sound_ok:
-  Buzzer_TurnOn(3800,40);
+  Buzzer_TurnOn(10000,20);
   Buzzer_TurnOn(0,20);
-  Buzzer_TurnOn(5500,50);
+  Buzzer_TurnOn(10000,20);
   break;
 case sound_success:
 
-  Buzzer_TurnOn(3500,50);
+  Buzzer_TurnOn(10000,20);
   Buzzer_TurnOn(0,50);
-  Buzzer_TurnOn(3500,50);
+  Buzzer_TurnOn(10000,20);
   Buzzer_TurnOn(0,50);
-  Buzzer_TurnOn(3500,50);
+  Buzzer_TurnOn(10000,20);
   break;
 case sound_cancel:
-  Buzzer_TurnOn(5500,50);
+  Buzzer_TurnOn(10000,20);
   Buzzer_TurnOn(0,20);
-  Buzzer_TurnOn(3800,40);
+  Buzzer_TurnOn(10000,20);
   break;
   case sound_notify:
-  Buzzer_TurnOn(3090,50);
-  Buzzer_TurnOn(0,50);
-  Buzzer_TurnOn(4190,50);
+  Buzzer_TurnOn(10000,20);
   break;
 case sound_error:
-   Buzzer_TurnOn(2200,200);
+   Buzzer_TurnOn(10000,20);
    Buzzer_TurnOn(0,60);
-   Buzzer_TurnOn(2200,200);
-   Buzzer_TurnOn(0,60);
-   Buzzer_TurnOn(2200,200);
+   Buzzer_TurnOn(10000,20);
   break;
 case sound_keypress:
 default:
