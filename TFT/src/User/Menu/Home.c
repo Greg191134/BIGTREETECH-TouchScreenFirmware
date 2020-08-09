@@ -25,7 +25,7 @@ void menuHome(void)
     key_num = menuKeyGetValue();
     switch(key_num)
     {
-      case KEY_ICON_0: storeCmd("G28\n");   break;
+      case KEY_ICON_0: storeCmd("G28\n"); storeCmd("G0 Y230 Z60 F3000\n");   break;
       case KEY_ICON_1: storeCmd("G28 X\n"); break;
       case KEY_ICON_2: storeCmd("G28 Y\n"); break;
       case KEY_ICON_3: storeCmd("G28 Z\n"); break;
@@ -35,4 +35,3 @@ void menuHome(void)
     loopProcess();
   }
 }
-
